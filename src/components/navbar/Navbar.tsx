@@ -55,7 +55,7 @@ export const Navbar = () => {
             <Links href="/tutor-onboarding" label="Become a Tutor" />
             <Links href="/explore" label="Explore Tutors" />
             <Links href="/subject-expert" label="Subject Experts" />
-            <button className="text-white bg-black px-4 py-2 font-[family-name:var(--font-geist-sans)]">
+            <button className="text-white bg-black px-4 py-2 font-[family-name:var(--font-geist-sans)] rounded-lg">
               <Links href="/dashboard" label="Sign In" />
             </button>
           </div>
@@ -117,7 +117,7 @@ export const Navbar = () => {
         </>
       )}
 
-      <div className="h-[1px] bg-gradient-to-r from-transparent via-slate-500 to-transparent " />
+      {/* <div className="h-[1px] bg-gradient-to-r from-transparent via-slate-500 to-transparent " /> */}
     </>
   );
 };

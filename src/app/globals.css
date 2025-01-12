@@ -3,5 +3,18 @@
 @tailwind utilities;
 
 
+@layer utilities{
+    .animmation-delay-2000 {
+        animation-delay: 2s;
+    }
+    .animmation-delay-4000 {
+        animation-delay: 4s;
+    }
+}
+
+
+
+
+
 
 
