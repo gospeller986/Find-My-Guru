@@ -3,6 +3,10 @@
 
 This project aims at connecting you with the best teachers around you , because ... common not everything can be done over Instagram . 
 
+## Status 
+
+Kinda completed the landing page , and made a form for onboarding the users 
+
 This is a weekend hobby project that might become a serious project . No strings attached . 
 Will try to implement all kind of crazy stuff over here 
 Backend stack is not yet decided , will decide soon ... 
