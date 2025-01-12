@@ -1,4 +1,13 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### FIND MY GURU 
+
+
+This project aims at connecting you with the best teachers around you , because ... common not everything can be done over Instagram . 
+
+This is a weekend hobby project that might become a serious project . No strings attached . 
+Will try to implement all kind of crazy stuff over here 
+Backend stack is not yet decided , will decide soon ... 
+
+
 
 ## Getting Started
 
