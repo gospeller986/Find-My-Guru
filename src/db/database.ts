@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 // Track the connection
 let isConnected = false;
 
-export const connectToDataBase = async () => {
+export const dbConnect = async () => {
   mongoose.set("strictQuery", true);
 
   if (isConnected) {
@@ -12,6 +12,7 @@ export const connectToDataBase = async () => {
   }
 
   try {
+    console.log("MONGO_URL:", process.env.MONGO_URL);
     await mongoose.connect(process.env.MONGO_URL || "", {
       dbName: "FINDMYGURU", // Specify the database name
     });

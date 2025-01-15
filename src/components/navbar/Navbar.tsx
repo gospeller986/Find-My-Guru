@@ -1,14 +1,29 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Links } from "../links/Links";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import CloseIcon from "@mui/icons-material/Close";
+import Cookies from "js-cookie"; // To access cookies for authentication status
 
 export const Navbar = () => {
   const isMobile = useIsMobile();
   const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [user, setUser] = useState<string | null>(null);
+
+  useEffect(() => {
+    const token = Cookies.get("token") || null; 
+    setUser(token); 
+  }, []); 
 
   const toggleDrawer = () => setDrawerOpen(!isDrawerOpen);
+  const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
+
+  const handleLogout = () => {
+    Cookies.remove("token");
+    setUser(null);
+    window.location.href = "/"; 
+  };
 
   return (
     <>
@@ -19,17 +34,17 @@ export const Navbar = () => {
           justifyContent: "space-between",
           alignItems: "center",
         }}
-        className= {` items-center py-4 ${isMobile ? "px-4" : "px-[10vw]"}`}
+        className={`navbar items-center py-4  px-4 md:px-[10vw] `}
       >
-        {isMobile && (
+
           <button
             onClick={toggleDrawer}
-            className="text-2xl text-black  rounded ml-4 "
+            className="text-2xl text-black rounded ml-4 block md:hidden "
             style={{ position: "absolute", left: "10px" }}
           >
             ☰
           </button>
-        )}
+
         <div
           style={{
             margin: isMobile ? "0 auto" : "0",
@@ -41,11 +56,11 @@ export const Navbar = () => {
           </h3>
         </div>
 
-        {!isMobile && (
+
           <div
+            className="hidden md:flex"
             style={{
               textAlign: "center",
-              display: "flex",
               flexDirection: "row",
               gap: 20,
               alignItems: "center",
@@ -55,16 +70,46 @@ export const Navbar = () => {
             <Links href="/tutor-onboarding" label="Become a Tutor" />
             <Links href="/explore" label="Explore Tutors" />
             <Links href="/subject-expert" label="Subject Experts" />
-            <button className="text-white bg-black px-4 py-2 font-[family-name:var(--font-geist-sans)] rounded-lg">
-              <Links href="/dashboard" label="Sign In" />
-            </button>
+            {user ? (
+              <div className="relative">
+                <button
+                  onClick={toggleDropdown}
+                  className="rounded-full bg-gray-300 p-2"
+                >
+                  <img
+                    src="/path/to/profile-picture.jpg"
+                    alt="Profile"
+                    className="w-10 h-10 rounded-full"
+                  />
+                </button>
+                {isDropdownOpen && (
+                  <div
+                    className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-48"
+                    style={{ zIndex: 100 }}
+                  >
+                    <Links href="/profile" label="Profile" />
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 text-red-500"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button className="text-white bg-black px-4 py-2 font-[family-name:var(--font-geist-sans)] rounded-lg">
+                <Links href="/auth/signin" label="Sign In" />
+              </button>
+            )}
           </div>
-        )}
+
       </div>
 
-      {isMobile && isDrawerOpen && (
+      { isDrawerOpen && (
         <>
           <div
+            className="block md:hidden"
             style={{
               position: "absolute",
               top: 0,
@@ -93,12 +138,22 @@ export const Navbar = () => {
                 gap: "20px",
               }}
             >
-              <Links href="" label="Become a Tutor" />
-              <Links href="" label="Explore Tutors" />
-              <Links href="" label="Subject Experts" />
-              <button className="text-white bg-black px-4 py-2 font-[family-name:var(--font-geist-sans)]">
-                Sign In
-              </button>
+              <Links href="/tutor-onboarding" label="Become a Tutor" />
+              <Links href="/explore" label="Explore Tutors" />
+              <Links href="/subject-expert" label="Subject Experts" />
+              {user ? (
+                <div className="flex flex-col gap-2">
+                  <Links href="/profile" label="Profile" />
+                  <button
+                    onClick={handleLogout}
+                    className="text-white bg-red-500 px-4 py-2"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <Links href="/auth/signin" label="Sign In" />
+              )}
             </nav>
           </div>
 
@@ -116,8 +171,6 @@ export const Navbar = () => {
           />
         </>
       )}
-
-      {/* <div className="h-[1px] bg-gradient-to-r from-transparent via-slate-500 to-transparent " /> */}
     </>
   );
 };
