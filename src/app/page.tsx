@@ -1,42 +1,37 @@
 "use client";
+
 import { BentoGrid } from "@/components/bentogrid/BentoGrid";
 import { Faq } from "@/components/faqs/Faq";
 import { Subjects } from "@/components/subjects/Subjects";
-import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function Home() {
-  const isMobile = useIsMobile();
   return (
-    <div className={`${isMobile ? "px-4" : "px-[10vw]"}`}>
+    <div className={`px-4 md:px-[10vw]`}>
       <div
-        className={`flex ${
-          isMobile ? "flex-col mb-[50vh]" : "flex-row"
-        } h-[80vh] w-[100%]  `}
+        className={`flex flex-col mb-[40vh] md:mb-0 md:flex-row
+         h-[80vh] w-[100%]  `}
       >
         <div
-          className={`flex flex-col justify-center ${
-            isMobile ? "w-[100%] p-10" : "w-[50%]"
-          }  gap-8`}
+          className={`flex flex-col justify-center w-[100%] p-10" md:w-[50%]
+            gap-8`}
         >
           <h1
-            className={` ${
-              isMobile ? "text-5xl" : "text-7xl"
-            }  font-extrabold  font-[family-name:var(--font-geist-sans)] `}
+            className={`text-5xl md:text-7xl
+           font-extrabold  font-[family-name:var(--font-geist-sans)] `}
           >
-            Find Your Perfect<br></br> <span className="text-[rgb(224,241,94)]"> Tutor</span> 
+            Find Your Perfect<br></br>{" "}
+            <span className="text-[rgb(224,241,94)]"> Tutor</span>
           </h1>
           <p
-            className={` ${
-              isMobile ? " text-base" : "text-xl"
-            }  max-w-[650px] font-[family-name:var(--font-geist-sans)]`}
+            className={`text-base md:text-xl
+              max-w-[650px] font-[family-name:var(--font-geist-sans)]`}
           >
             Connect with expert tutors in your area, access comprehensive study
             materials, and ace your exams with personalized learning support.
           </p>
           <div
-            className={`flex gap-8 ${
-              isMobile ? "flex-col w-[100%] " : "flex-row"
-            }`}
+            className={`flex gap-8 flex-col w-[100%] md:flex-row
+            `}
           >
             <button className="text-white bg-black px-4 py-2 rounded-lg">
               Find a Tutor
@@ -47,28 +42,23 @@ export default function Home() {
           </div>
         </div>
         <div
-          className={`flex flex-col justify-center  items-center  ${
-            isMobile ? "w-[100%] p-10" : "w-[50%] min-h-[80vh]" 
-          }  gap-8`}
-        >   
+          className={`flex flex-col justify-center  items-center w-[100%] p-10 md:w-[50%] md:min-h-[80vh] gap-8`}
+        >
           <div className=" relative w-full max-w-lg ">
             <div
-              className={` absolute ${
-                isMobile ? "top-20 left-20" : "top-0 -left-4"
-              }   w-72 h-72 md:h-[22rem] md:w-[22rem] bg-yellow-300 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-blob animmation-delay-2000`}
+              className={` absolute top-20 left-20 md:top-0 md:-left-4
+              w-72 h-72 md:h-[22rem] md:w-[22rem] bg-yellow-300 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-blob animmation-delay-2000`}
             />
             <div
-              className={`absolute ${
-                isMobile ? "-top-10 right-20" : "top-0 -right-4"
-              }  w-72 h-72  md:h-[22rem] md:w-[22rem] bg-blue-400 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-blob animmation-delay-2000`}
+              className={`absolute -top-10 right-20 md:top-0 md:-right-4
+                w-72 h-72  md:h-[22rem] md:w-[22rem] bg-blue-400 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-blob animmation-delay-2000`}
             />
             <div
               className={`absolute -bottom-20 left-20 w-72 h-72  md:h-[22rem] md:w-[22rem] bg-pink-300 rounded-full mix-blend-multiply filter blur-2xl opacity-70 animate-blob`}
             />
             <div
-              className={`bg-[white]/40 backdrop-blur-0-[20px] z-10 w-[100%]  absolute ${
-                isMobile ? " p-4 h-[40vh]" : "-top-40 p-10 h-[30vh]"
-              }  border-white border rounded-lg `}
+              className={`bg-[white]/40 backdrop-blur-0-[20px] z-10 w-[100%]  absolute   p-4 max-h-fit md:-top-40 md:p-10 
+                border-white border rounded-lg `}
             >
               <h1 className="text-3xl font-bold font-[family-name:var(--font-geist-sans)]">
                 Quick Stats
@@ -116,10 +106,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <BentoGrid/>
-      <Subjects/>
-      <Faq/>
-
+      <BentoGrid />
+      <Subjects />
+      <Faq />
     </div>
   );
 }

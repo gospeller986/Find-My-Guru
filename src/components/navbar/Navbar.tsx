@@ -1,29 +1,31 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import { Links } from "../links/Links";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import CloseIcon from "@mui/icons-material/Close";
-import Cookies from "js-cookie"; // To access cookies for authentication status
+import Image from "next/image";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { Avatar, Button, Divider, IconButton } from "@mui/material";
+import { stringAvatar } from "@/lib/utils";
 
 export const Navbar = () => {
   const isMobile = useIsMobile();
+  const { user, logout, setUser } = useAuth();
+  const router = useRouter();
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const [user, setUser] = useState<string | null>(null);
-
-  useEffect(() => {
-    const token = Cookies.get("token") || null; 
-    setUser(token); 
-  }, []); 
-
   const toggleDrawer = () => setDrawerOpen(!isDrawerOpen);
   const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
 
   const handleLogout = () => {
-    Cookies.remove("token");
+    logout();
+    router.push("/");
     setUser(null);
-    window.location.href = "/"; 
   };
+
+  console.log(user);
 
   return (
     <>
@@ -36,14 +38,13 @@ export const Navbar = () => {
         }}
         className={`navbar items-center py-4  px-4 md:px-[10vw] `}
       >
-
-          <button
-            onClick={toggleDrawer}
-            className="text-2xl text-black rounded ml-4 block md:hidden "
-            style={{ position: "absolute", left: "10px" }}
-          >
-            ☰
-          </button>
+        <button
+          onClick={toggleDrawer}
+          className="text-2xl text-black rounded ml-4 block md:hidden "
+          style={{ position: "absolute", left: "10px" }}
+        >
+          ☰
+        </button>
 
         <div
           style={{
@@ -56,57 +57,68 @@ export const Navbar = () => {
           </h3>
         </div>
 
-
-          <div
-            className="hidden md:flex"
-            style={{
-              textAlign: "center",
-              flexDirection: "row",
-              gap: 20,
-              alignItems: "center",
-              textDecoration: "none",
-            }}
-          >
-            <Links href="/tutor-onboarding" label="Become a Tutor" />
-            <Links href="/explore" label="Explore Tutors" />
-            <Links href="/subject-expert" label="Subject Experts" />
-            {user ? (
-              <div className="relative">
-                <button
-                  onClick={toggleDropdown}
-                  className="rounded-full bg-gray-300 p-2"
+        <div
+          className="hidden md:flex"
+          style={{
+            textAlign: "center",
+            flexDirection: "row",
+            gap: 20,
+            alignItems: "center",
+            textDecoration: "none",
+          }}
+        >
+          <Links href="/tutor-onboarding" label="Become a Tutor" />
+          <Links href="/explore" label="Explore Tutors" />
+          <Links href="/subject-expert" label="Subject Experts" />
+          {user ? (
+            <div className="relative">
+              <IconButton
+                onClick={toggleDropdown}
+                className="rounded-full bg-gray-300 "
+              >
+                <Avatar {...stringAvatar(user?.name)}></Avatar>
+              </IconButton>
+              {isDropdownOpen && (
+                <div
+                  className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-48"
+                  style={{ zIndex: 100 }}
                 >
-                  <img
-                    src="/path/to/profile-picture.jpg"
-                    alt="Profile"
-                    className="w-10 h-10 rounded-full"
-                  />
-                </button>
-                {isDropdownOpen && (
-                  <div
-                    className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-48"
-                    style={{ zIndex: 100 }}
+                  <Button
+                    sx={{
+                      textTransform: "none",
+                      textDecoration: "none",
+                      color: "black",
+                    }}
+                    fullWidth
+                    onClick={() => router.push(`/profile/${user?.id}`)}
                   >
-                    <Links href="/profile" label="Profile" />
-                    <button
-                      onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 text-red-500"
-                    >
-                      Logout
-                    </button>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <button className="text-white bg-black px-4 py-2 font-[family-name:var(--font-geist-sans)] rounded-lg">
-                <Links href="/auth/signin" label="Sign In" />
-              </button>
-            )}
-          </div>
-
+                    Profile
+                  </Button>
+                  <Divider />
+                  <Button
+                    onClick={handleLogout}
+                    fullWidth
+                    className="block w-full text-left px-4 py-2 text-red-500"
+                    sx={{
+                      textTransform: "none",
+                      textDecoration: "none",
+                      color: "black",
+                    }}
+                  >
+                    Logout
+                  </Button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <button className="text-white bg-black px-4 py-2 font-[family-name:var(--font-geist-sans)] rounded-lg">
+              <Links href="/auth/signin" label="Sign In" />
+            </button>
+          )}
+        </div>
       </div>
 
-      { isDrawerOpen && (
+      {isDrawerOpen && (
         <>
           <div
             className="block md:hidden"

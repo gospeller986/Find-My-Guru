@@ -39,7 +39,7 @@ export default function SignupPage() {
 
       router.push("/auth/signin");
     } catch (err) {
-      setError("An error occurred during sign-up");
+      setError(`An error occurred during sign-up ${err}`);
     }
   };
 

@@ -3,13 +3,15 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, TextField} from "@mui/material";
+import { useAuth } from "@/context/AuthContext";
 
 export default function SigninPage() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [availableHeight, setAvailableHeight] = useState<number>(0);
   const router = useRouter();
+  const {setUser} = useAuth()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -34,12 +36,16 @@ export default function SigninPage() {
         return;
       }
 
-      const { token } = await res.json();
+      const { token , data } = await res.json();
+      console.log("Data",data)
       Cookies.set("token", token, { expires: 7 }); // Store token in cookies for 7 days
+      setUser({id : data._id , name : data.name , email : data.email})
+      setTimeout(()=>{
+        router.push("/dashboard");
+      },500)
 
-      router.push("/dashboard");
     } catch (err) {
-      setError("An error occurred during sign-in");
+      setError(`An error occurred during sign-in ${err}`);
     }
   };
 
@@ -96,7 +102,7 @@ export default function SigninPage() {
           required
           fullWidth
         />
-        <h1>Don't have an account ? <a href="/auth/signup" className="underline font-semibold" >Sign Up</a> </h1>
+        <h1>Don&apos;t have an account ? <a href="/auth/signup" className="underline font-semibold" >Sign Up</a> </h1>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <Button
           variant="contained"

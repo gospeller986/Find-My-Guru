@@ -25,6 +25,7 @@ export async function POST(request: Request) {
 
     // Check if the user exists
     const user = await User.findOne({ email });
+    console.log("USERRRR", user)
     if (!user) {
       return NextResponse.json(
         { error: "Invalid email or password" },
@@ -43,7 +44,7 @@ export async function POST(request: Request) {
 
     // Generate a JWT
     const token = jwt.sign(
-      { id: user._id, email: user.email, role: user.role },
+      { id: user._id, email: user.email, role: user.role , name : user.name },
       JWT_SECRET,
       { expiresIn: "7d" }
     );
