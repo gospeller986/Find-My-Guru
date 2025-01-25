@@ -2,10 +2,14 @@
 
 import { BentoGrid } from "@/components/bentogrid/BentoGrid";
 import { Faq } from "@/components/faqs/Faq";
+import { Footer } from "@/components/footer/Footer";
+import { Navbar } from "@/components/navbar/Navbar";
 import { Subjects } from "@/components/subjects/Subjects";
 
 export default function Home() {
   return (
+    <>
+    <Navbar/>
     <div className={`px-4 md:px-[10vw]`}>
       <div
         className={`flex flex-col mb-[40vh] md:mb-0 md:flex-row
@@ -110,5 +114,7 @@ export default function Home() {
       <Subjects />
       <Faq />
     </div>
+    <Footer/>
+    </>
   );
 }

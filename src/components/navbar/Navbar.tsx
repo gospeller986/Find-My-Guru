@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Links } from "../links/Links";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import CloseIcon from "@mui/icons-material/Close";
-import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { Avatar, Button, Divider, IconButton } from "@mui/material";

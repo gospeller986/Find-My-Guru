@@ -3,7 +3,7 @@
 import React from "react";
 import teacherImg1 from "../../../public/teacher1.jpg";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { Button, IconButton, Tooltip } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 
 export const ExpertCard = () => {
   return (

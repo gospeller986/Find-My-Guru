@@ -14,9 +14,14 @@ export default {
         foreground: "var(--foreground)",
       },
       animation : {
-         blob : "blob 7s infinite ease-in-out"
+         blob : "blob 7s infinite ease-in-out",
+         rotate : 'rotate 10s linear infinite',
       },
       keyframes : {
+          rotate : {
+            '0%': { transform: 'rotate(0deg) scale(10)' },
+            '100%': { transform: 'rotate(-360deg) scale(10)' },
+          },
           blob : {
             "0%" : {
               transform: "translate(0px, 0px) scale(1)"

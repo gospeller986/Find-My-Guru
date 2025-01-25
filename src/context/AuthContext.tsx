@@ -5,7 +5,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
 type User = {
-  id ?: any
+  id ?: number | string ;
   name: string;
   email: string;
   profilePicture?: string; // Optional if users don't have profile pictures

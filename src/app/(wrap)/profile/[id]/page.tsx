@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { COLORS } from "@/styles/color";
+
 
 type UserProfile = {
   name: string;
