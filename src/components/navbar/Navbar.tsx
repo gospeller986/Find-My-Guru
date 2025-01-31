@@ -55,11 +55,10 @@ export const Navbar = () => {
             textAlign: isMobile ? "center" : "left",
           }}
         >
-
           <div className="font-[family-name:var(--font-geist-sans)] text-3xl font-bold">
             <Links href="/">
-            <Image className="h-10 w-10" src={logo} alt="logo" />
-              <span >Find My Guru</span>
+              <Image className="h-10 w-10" src={logo} alt="logo" />
+              <span>Find My Guru</span>
             </Links>
           </div>
         </div>
@@ -133,8 +132,8 @@ export const Navbar = () => {
           ) : (
             <button className="text-white flex justify-center items-center gap-2  bg-black px-4 py-2 font-[family-name:var(--font-geist-sans)] rounded-lg">
               <CardGiftcardIcon />
-              <Links href="/auth/signin" >
-               <h3>Sign In</h3>
+              <Links href="/auth/signin">
+                <h3>Sign In</h3>
               </Links>
             </button>
           )}
@@ -196,8 +195,7 @@ export const Navbar = () => {
                 </div>
               ) : (
                 <Links href="/auth/signin">
-                    <h3>Sign In</h3>
-  
+                  <h3>Sign In</h3>
                 </Links>
               )}
             </nav>

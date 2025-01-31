@@ -11,7 +11,7 @@ import { HighestDegree, Subjects } from "@/lib/data";
 
 export default function Onboarding() {
   const [formData, setFormData] = useState<FormData>({
-    description : "",
+    description: "",
     address: "",
     phoneNumber: "",
     country: null,
@@ -23,7 +23,7 @@ export default function Onboarding() {
   });
 
   const [errors, setErrors] = useState<FormErrors>({
-    description : "",
+    description: "",
     address: "",
     phoneNumber: "",
     country: "",
@@ -85,7 +85,7 @@ export default function Onboarding() {
 
   const validate = () => {
     const newErrors: FormErrors = {
-      description : "",
+      description: "",
       address: "",
       phoneNumber: "",
       country: "",
@@ -185,12 +185,14 @@ export default function Onboarding() {
         />
         <TextField
           name="description"
-          value={formData.description || ""} 
+          value={formData.description || ""}
           onChange={handleInputChange}
           fullWidth
           placeholder="Description"
           label="Description"
           multiline
+          error={!!errors.description}
+          helperText={errors.description}
         />
         <Box
           sx={{
