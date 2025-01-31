@@ -3,14 +3,13 @@ import Review from "@/models/review.model";
 import TutorProfile from "@/models/tutor.model";
 import { NextRequest, NextResponse } from "next/server";
 
-// Connect to the database
-await dbConnect();
 
 /**
  * @desc Get tutors based on filters (location, rating, subjects)
  * @method POST /api/tutors/filter
  */
 export async function POST(req: NextRequest) {
+    await dbConnect();
   try {
     const { city, state, country, minRating, subjects } = await req.json();
 
