@@ -7,6 +7,8 @@ export interface ITutorProfile extends Document {
   experience?: number; // Optional in years
   availability?: string; // Optional, e.g., "Weekends", "Evenings"
   hourlyRate?: number; // Optional
+  averageRating ?: number ;
+  totalReviews ?: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -19,6 +21,8 @@ const tutorProfileSchema: Schema<ITutorProfile> = new mongoose.Schema(
     experience: { type: Number }, // Optional
     availability: { type: String }, // Optional
     hourlyRate: { type: Number }, // Optional
+    averageRating: { type: Number, default: 0 },
+    totalReviews: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
