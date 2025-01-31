@@ -1,6 +1,5 @@
  export interface FormErrors {
-  firstName: string;
-  lastName: string;
+  description ?: string ;
   address: string;
   phoneNumber: string;
   country: string;
@@ -17,14 +16,13 @@ export interface AddressInterface {
 }
 
 export interface FormData {
-  firstName: string;
-  lastName: string;
-  address: string;
-  phoneNumber: string;
-  country: AddressInterface | null;
-  state: AddressInterface | null;
-  city: AddressInterface | null;
-  pincode: number;
+  description ?: string ;
+  address?: string;
+  phoneNumber?: string;
+  country?: AddressInterface | null;
+  state?: AddressInterface | null;
+  city?: AddressInterface | null;
+  pincode?: number;
   subjects ?: string[]; 
   highestDegree ?: string ;
 }

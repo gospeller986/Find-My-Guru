@@ -1,11 +1,8 @@
 "use client";
-
-import { Switch } from "@/components/switch/Switch";
 import React, { useEffect, useState } from "react";
 
-const DashBoard = () => {
+export const Loader = () => {
   const [availableHeight, setAvailableHeight] = useState<number>(0);
-  const [activeType , setActiveType] = useState<string>("student");
   useEffect(() => {
     const navbar = document.querySelector(".navbar");
     const footer = document.querySelector(".footer");
@@ -30,11 +27,14 @@ const DashBoard = () => {
     // Cleanup listener on component unmount
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  return <div className="flex flex-col items-center  px-4 md:px-40" style={{ minHeight: `${availableHeight}px` }}>
-       <div>
-           <Switch activeType={activeType} setActiveType={setActiveType} />
-       </div>
-  </div>;
+  return (
+    <>
+      <div
+        className="h-full w-full flex justify-center items-center"
+        style={{ minHeight: `${availableHeight}px` }}
+      >
+        <div className="loader"></div>
+      </div>
+    </>
+  );
 };
-
-export default DashBoard;

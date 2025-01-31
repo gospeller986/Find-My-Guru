@@ -8,6 +8,9 @@ import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { Avatar, Button, Divider, IconButton } from "@mui/material";
 import { stringAvatar } from "@/lib/utils";
+import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
+import Image from "next/image";
+import logo from "../../../public/logo.png";
 
 export const Navbar = () => {
   const isMobile = useIsMobile();
@@ -24,7 +27,7 @@ export const Navbar = () => {
     setUser(null);
   };
 
-  console.log(user);
+  console.log("USER", user);
 
   return (
     <>
@@ -46,14 +49,19 @@ export const Navbar = () => {
         </button>
 
         <div
+          className="flex flex-row items-center gap-2"
           style={{
             margin: isMobile ? "0 auto" : "0",
             textAlign: isMobile ? "center" : "left",
           }}
         >
-          <h3 className="font-[family-name:var(--font-geist-sans)] text-3xl font-semibold">
-            <Links href="/" label="Find My Guru" />
-          </h3>
+
+          <div className="font-[family-name:var(--font-geist-sans)] text-3xl font-bold">
+            <Links href="/">
+            <Image className="h-10 w-10" src={logo} alt="logo" />
+              <span >Find My Guru</span>
+            </Links>
+          </div>
         </div>
 
         <div
@@ -66,9 +74,22 @@ export const Navbar = () => {
             textDecoration: "none",
           }}
         >
-          <Links href="/tutor-onboarding" label="Become a Tutor" />
-          <Links href="/explore" label="Explore Tutors" />
-          <Links href="/subject-expert" label="Subject Experts" />
+          {user ? (
+            <>
+              <Links href="/dashboard">
+                <h3>Dashboard</h3>
+              </Links>
+            </>
+          ) : (
+            <></>
+          )}
+
+          <Links href="/explore">
+            <h3>Explore Tutors</h3>
+          </Links>
+          <Links href="/subject-expert">
+            <h3>Subject Experts</h3>
+          </Links>
           {user ? (
             <div className="relative">
               <IconButton
@@ -110,8 +131,11 @@ export const Navbar = () => {
               )}
             </div>
           ) : (
-            <button className="text-white bg-black px-4 py-2 font-[family-name:var(--font-geist-sans)] rounded-lg">
-              <Links href="/auth/signin" label="Sign In" />
+            <button className="text-white flex justify-center items-center gap-2  bg-black px-4 py-2 font-[family-name:var(--font-geist-sans)] rounded-lg">
+              <CardGiftcardIcon />
+              <Links href="/auth/signin" >
+               <h3>Sign In</h3>
+              </Links>
             </button>
           )}
         </div>
@@ -149,12 +173,20 @@ export const Navbar = () => {
                 gap: "20px",
               }}
             >
-              <Links href="/tutor-onboarding" label="Become a Tutor" />
-              <Links href="/explore" label="Explore Tutors" />
-              <Links href="/subject-expert" label="Subject Experts" />
+              <Links href="/dashboard">
+                <h3>Dashboard</h3>
+              </Links>
+              <Links href="/explore">
+                <h3>Explore Tutors</h3>
+              </Links>
+              <Links href="/subject-expert">
+                <h3>Subject Experts</h3>
+              </Links>
               {user ? (
                 <div className="flex flex-col gap-2">
-                  <Links href="/profile" label="Profile" />
+                  <Links href={`/profile/${user.id}`}>
+                    <h3>Profile</h3>
+                  </Links>
                   <button
                     onClick={handleLogout}
                     className="text-white bg-red-500 px-4 py-2"
@@ -163,7 +195,10 @@ export const Navbar = () => {
                   </button>
                 </div>
               ) : (
-                <Links href="/auth/signin" label="Sign In" />
+                <Links href="/auth/signin">
+                    <h3>Sign In</h3>
+  
+                </Links>
               )}
             </nav>
           </div>

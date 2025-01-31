@@ -11,8 +11,7 @@ import { HighestDegree, Subjects } from "@/lib/data";
 
 export default function Onboarding() {
   const [formData, setFormData] = useState<FormData>({
-    firstName: "",
-    lastName: "",
+    description : "",
     address: "",
     phoneNumber: "",
     country: null,
@@ -24,8 +23,7 @@ export default function Onboarding() {
   });
 
   const [errors, setErrors] = useState<FormErrors>({
-    firstName: "",
-    lastName: "",
+    description : "",
     address: "",
     phoneNumber: "",
     country: "",
@@ -87,8 +85,7 @@ export default function Onboarding() {
 
   const validate = () => {
     const newErrors: FormErrors = {
-      firstName: "",
-      lastName: "",
+      description : "",
       address: "",
       phoneNumber: "",
       country: "",
@@ -96,8 +93,6 @@ export default function Onboarding() {
       city: "",
       pincode: "",
     };
-    if (!formData.firstName) newErrors.firstName = "First Name is required";
-    if (!formData.lastName) newErrors.lastName = "Last Name is required";
     if (!formData.address) newErrors.address = "Address is required";
     if (!formData.phoneNumber || !/^\d{10}$/.test(formData.phoneNumber))
       newErrors.phoneNumber = "Enter a valid 10-digit phone number";
@@ -149,6 +144,54 @@ export default function Onboarding() {
         }}
         className="bg-white/40 backdrop-blur-lg-50 "
       >
+        <Autocomplete
+          options={HighestDegree}
+          getOptionLabel={(option) => option}
+          value={formData.highestDegree || ""} // Ensure value is never null
+          onChange={
+            (event, value) =>
+              setFormData({ ...formData, highestDegree: value || "" }) // Default to empty string if value is null
+          }
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Highest Qualification"
+              margin="normal"
+              error={!!errors.highestDegree}
+              helperText={errors.highestDegree}
+              fullWidth
+            />
+          )}
+        />
+        <Autocomplete
+          multiple
+          options={Subjects}
+          getOptionLabel={(option) => option}
+          value={formData.subjects || []}
+          onChange={(event, value) =>
+            setFormData({ ...formData, subjects: value })
+          }
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Subjects Expertise"
+              margin="normal"
+              placeholder="You may select multiple"
+              error={!!errors.subjects}
+              helperText={errors.subjects}
+              fullWidth
+            />
+          )}
+        />
+        <TextField
+          name="description"
+          value={formData.description || ""} 
+          onChange={handleInputChange}
+          fullWidth
+          placeholder="Description"
+          label="Description"
+          multiline
+        />
         <Box
           sx={{
             display: "grid",
@@ -156,29 +199,9 @@ export default function Onboarding() {
               xs: "1fr",
               md: "1fr 1fr",
             },
-            gap: 2,
+            gap: 1,
           }}
         >
-          <TextField
-            label="First Name"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleInputChange}
-            fullWidth
-            margin="normal"
-            error={!!errors.firstName}
-            helperText={errors.firstName}
-          />
-          <TextField
-            label="Last Name"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleInputChange}
-            fullWidth
-            margin="normal"
-            error={!!errors.lastName}
-            helperText={errors.lastName}
-          />
           <TextField
             label="Address"
             name="address"
@@ -258,45 +281,6 @@ export default function Onboarding() {
             margin="normal"
             error={!!errors.pincode}
             helperText={errors.pincode}
-          />
-          <Autocomplete
-            options={HighestDegree}
-            getOptionLabel={(option) => option}
-            value={formData.highestDegree || ""} // Ensure value is never null
-            onChange={
-              (event, value) =>
-                setFormData({ ...formData, highestDegree: value || "" }) // Default to empty string if value is null
-            }
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Highest Qualification"
-                margin="normal"
-                error={!!errors.highestDegree}
-                helperText={errors.highestDegree}
-                fullWidth
-              />
-            )}
-          />
-          <Autocomplete
-            multiple
-            options={Subjects}
-            getOptionLabel={(option) => option}
-            value={formData.subjects || []}
-            onChange={(event, value) =>
-              setFormData({ ...formData, subjects: value })
-            }
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Subjects Expertise"
-                margin="normal"
-                placeholder="You may select multiple"
-                error={!!errors.subjects}
-                helperText={errors.subjects}
-                fullWidth
-              />
-            )}
           />
         </Box>
         <Button

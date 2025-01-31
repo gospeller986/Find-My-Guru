@@ -39,7 +39,7 @@ export default function SigninPage() {
       const { token , data } = await res.json();
       console.log("Data",data)
       Cookies.set("token", token, { expires: 7 }); // Store token in cookies for 7 days
-      setUser({id : data._id , name : data.name , email : data.email})
+      setUser({id : data.id , name : data.name , email : data.email})
       setTimeout(()=>{
         router.push("/dashboard");
       },500)
